@@ -1,8 +1,9 @@
 
-import React, { useEffect } from "react";
-import { Shield, User, Book } from "lucide-react";
+import React from "react";
+import { Shield, Book } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const QuemSomosSection = () => {
   const { ref: sectionRef, inView: sectionVisible } = useInView({
@@ -24,7 +25,7 @@ const QuemSomosSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Quem Somos */}
+          {/* Nossa Essência */}
           <div className={cn(
             "bg-white p-8 rounded-lg shadow-lg",
             sectionVisible ? "opacity-100 animate-slide-up" : "opacity-0"
@@ -40,18 +41,21 @@ const QuemSomosSection = () => {
             </p>
           </div>
 
-          {/* Quem é Eduardo Arrivabene */}
+          {/* Eduardo Arrivabene com foto */}
           <div className={cn(
-            "bg-white p-8 rounded-lg shadow-lg",
+            "bg-white p-8 rounded-lg shadow-lg flex flex-col items-center",
             sectionVisible ? "opacity-100 animate-slide-up" : "opacity-0"
           )} style={{ animationDelay: "0.4s" }}>
-            <div className="flex items-center mb-4">
-              <User className="text-accent mr-3" size={24} />
-              <h3 className="text-2xl font-semibold text-primary">Eduardo Arrivabene</h3>
+            <div className="w-40 h-40 rounded-full overflow-hidden mb-6 border-4 border-accent">
+              <Avatar className="w-full h-full">
+                <AvatarImage src="/placeholder.svg" alt="Eduardo Arrivabene" className="object-cover" />
+                <AvatarFallback className="bg-primary text-white text-2xl">EA</AvatarFallback>
+              </Avatar>
             </div>
-            <p className="text-gray-700 mb-2">OAB/SP nº 375.994</p>
-            <p className="text-gray-700">
-              Advogado com experiência em direito civil, empresarial e contratual. Graduado em Direito com especialização
+            <h3 className="text-2xl font-semibold text-primary mb-2 text-center">Eduardo Arrivabene</h3>
+            <p className="text-gray-700 mb-4 text-center">OAB/SP nº 375.994</p>
+            <p className="text-gray-700 text-center">
+              Advogado com vasta experiência em direito civil, empresarial e contratual. Graduado em Direito com especialização
               em Direito Empresarial e Contratos. Possui mais de 10 anos de atuação na assessoria jurídica empresarial, 
               conduzindo casos complexos com dedicação e compromisso inabalável.
             </p>

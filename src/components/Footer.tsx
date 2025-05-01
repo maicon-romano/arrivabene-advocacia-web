@@ -19,9 +19,13 @@ const Footer = () => {
         <div className="py-12 grid md:grid-cols-3 gap-8">
           {/* Logo and About */}
           <div>
-            <h2 className="text-2xl font-bold mb-4">
-              <span className="text-accent">ARRIVABENE</span> ADVOCACIA
-            </h2>
+            <div className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/1cd7e80b-d083-41c5-93cd-068b63e2cd46.png" 
+                alt="Arrivabene Advocacia" 
+                className="h-12 mr-3"
+              />
+            </div>
             <p className="mb-4 text-gray-300">
               Assessoria jurídica confiável e eficaz na Mesorregião de Campinas, com foco na excelência e no atendimento personalizado.
             </p>

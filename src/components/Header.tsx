@@ -70,9 +70,11 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-white text-lg md:text-xl font-bold">
-              <span className="text-accent">ARRIVABENE</span> ADVOCACIA
-            </h1>
+            <img 
+              src="/lovable-uploads/1cd7e80b-d083-41c5-93cd-068b63e2cd46.png" 
+              alt="Arrivabene Advocacia" 
+              className="h-12 md:h-14 mr-3" 
+            />
           </div>
           
           {/* Desktop navigation */}
