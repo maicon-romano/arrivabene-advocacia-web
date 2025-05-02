@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Send, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -44,6 +44,22 @@ const ContatoSection = () => {
       telefone: "",
       mensagem: ""
     });
+  };
+
+  const handlePhoneClick = () => {
+    window.open("tel:+5519998223557");
+  };
+
+  const handleEmailClick = () => {
+    window.open("mailto:contato@arrivabeneadvocacia.com.br");
+  };
+
+  const handleMapClick = () => {
+    window.open("https://maps.app.goo.gl/pr7z71w7Lj4nEkEn7", "_blank");
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open("https://wa.me/5519998223557", "_blank");
   };
 
   return (
@@ -146,37 +162,59 @@ const ContatoSection = () => {
               
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <Phone className="text-accent mr-4 mt-1" size={20} />
+                  <button onClick={handlePhoneClick} className="text-accent hover:text-primary mr-4 mt-1 transition-colors">
+                    <Phone size={20} />
+                  </button>
                   <div>
                     <h4 className="font-medium">Telefone</h4>
-                    <p className="text-gray-600">(19) 9 9822-3557</p>
+                    <button onClick={handlePhoneClick} className="text-gray-600 hover:text-accent transition-colors">
+                      (19) 9 9822-3557
+                    </button>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <Mail className="text-accent mr-4 mt-1" size={20} />
+                  <button onClick={handleEmailClick} className="text-accent hover:text-primary mr-4 mt-1 transition-colors">
+                    <Mail size={20} />
+                  </button>
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-gray-600">contato@arrivabeneadvocacia.com.br</p>
+                    <button onClick={handleEmailClick} className="text-gray-600 hover:text-accent transition-colors">
+                      contato@arrivabeneadvocacia.com.br
+                    </button>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <MapPin className="text-accent mr-4 mt-1" size={20} />
+                  <button onClick={handleMapClick} className="text-accent hover:text-primary mr-4 mt-1 transition-colors">
+                    <MapPin size={20} />
+                  </button>
                   <div>
                     <h4 className="font-medium">Endereço</h4>
-                    <p className="text-gray-600">R. Dez de Abril, 516 - Centro, Artur Nogueira - SP, 13160-162</p>
+                    <button onClick={handleMapClick} className="text-gray-600 hover:text-accent transition-colors text-left">
+                      R. Dez de Abril, 516 - Centro, Artur Nogueira - SP, 13160-162
+                    </button>
                   </div>
                 </div>
                 
                 <div className="flex items-center pt-4">
                   <h4 className="font-medium mr-4">Redes Sociais:</h4>
-                  <a href="https://instagram.com" className="text-accent hover:text-primary mr-4 transition-colors">
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-primary mr-4 transition-colors">
                     <Instagram size={20} />
                   </a>
-                  <a href="https://facebook.com" className="text-accent hover:text-primary transition-colors">
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-primary transition-colors">
                     <Facebook size={20} />
                   </a>
+                </div>
+
+                <div className="pt-4">
+                  <button 
+                    onClick={handleWhatsAppClick}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-md flex items-center justify-center transition-all"
+                  >
+                    <MessageCircle size={18} className="mr-2" />
+                    Falar pelo WhatsApp
+                  </button>
                 </div>
               </div>
             </div>

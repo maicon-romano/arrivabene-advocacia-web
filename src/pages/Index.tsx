@@ -8,6 +8,8 @@ import PorQueNosSection from '../components/PorQueNosSection';
 import ContatoSection from '../components/ContatoSection';
 import BlogSection from '../components/BlogSection';
 import Footer from '../components/Footer';
+import FloatingButtons from '../components/FloatingButtons';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Index = () => {
   // Scroll to top on page load
@@ -18,13 +20,14 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="relative overflow-hidden">
         <HeroSection />
         <QuemSomosSection />
         <ServicosSection />
         <PorQueNosSection />
         <ContatoSection />
         <BlogSection />
+        <FloatingButtons />
       </main>
       <Footer />
     </div>
