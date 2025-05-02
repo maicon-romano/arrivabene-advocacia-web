@@ -222,6 +222,15 @@ const AdminDashboard = ({ onLogout }: { onLogout: () => void }) => {
     navigate(`/blog/${id}`);
   };
 
+  // Fix for the TypeScript error - we need to use a proper TypeScript cast
+  const switchToNewPostTab = () => {
+    const newPostTab = document.querySelector('[data-state="inactive"][data-value="new-post"]');
+    if (newPostTab) {
+      // Cast to HTMLElement which has the click() method
+      (newPostTab as HTMLElement).click();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-primary text-white p-4 shadow-md">
@@ -246,7 +255,7 @@ const AdminDashboard = ({ onLogout }: { onLogout: () => void }) => {
             {posts.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-gray-500">Nenhum post encontrado</p>
-                <Button className="mt-4" onClick={() => document.querySelector('[data-state="inactive"][data-value="new-post"]')?.click()}>
+                <Button className="mt-4" onClick={switchToNewPostTab}>
                   Criar novo post
                 </Button>
               </div>
