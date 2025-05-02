@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { BlogPost } from '../../contexts/BlogContext';
+import ImageUpload from './ImageUpload';
 
 interface NewPostProps {
   newPost: Omit<BlogPost, 'id'>;
@@ -16,6 +17,10 @@ interface NewPostProps {
 }
 
 const NewPost = ({ newPost, categories, onNewPostChange, onCreatePost }: NewPostProps) => {
+  const handleImageChange = (imageUrl: string) => {
+    onNewPostChange({...newPost, coverImage: imageUrl});
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -50,6 +55,12 @@ const NewPost = ({ newPost, categories, onNewPostChange, onCreatePost }: NewPost
             </select>
           </div>
           
+          {/* Image Upload */}
+          <ImageUpload 
+            onImageChange={handleImageChange} 
+            currentImage={newPost.coverImage}
+          />
+
           <div className="grid gap-2">
             <Label htmlFor="post-excerpt">Resumo</Label>
             <Textarea 

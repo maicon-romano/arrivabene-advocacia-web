@@ -121,6 +121,13 @@ const BlogPage = () => {
                     style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                   >
                     <div className="h-48 bg-gray-100 relative">
+                      {post.coverImage && (
+                        <img 
+                          src={post.coverImage} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                       <div className="absolute top-4 left-4 bg-accent text-white text-xs font-medium px-2 py-1 rounded">
                         {post.category}
                       </div>

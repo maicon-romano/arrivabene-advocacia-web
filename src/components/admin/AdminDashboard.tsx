@@ -32,6 +32,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     title: '',
     excerpt: '',
     content: '',
+    coverImage: '',
     category: categories.filter(c => c !== 'Todos')[0] || 'Outros',
     date: new Date().toLocaleDateString('pt-BR', {
       day: '2-digit',
@@ -59,6 +60,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
       title: '',
       excerpt: '',
       content: '',
+      coverImage: '',
       category: categories.filter(c => c !== 'Todos')[0] || 'Outros',
       date: new Date().toLocaleDateString('pt-BR', {
         day: '2-digit',
