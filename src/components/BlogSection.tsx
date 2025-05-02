@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { CircleArrowRight, Clock, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useBlog } from "../contexts/BlogContext";
 
 const BlogSection = () => {
   const { ref, inView } = useInView({
@@ -11,30 +12,13 @@ const BlogSection = () => {
     triggerOnce: true,
   });
 
-  // Example blog posts (would be replaced with real data in a production app)
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Novas regulamentações empresariais: O que seu negócio precisa saber",
-      excerpt: "Conheça as mudanças recentes na legislação empresarial e como elas podem afetar o seu negócio...",
-      date: "15 Abr 2025",
-      readTime: "5 min de leitura"
-    },
-    {
-      id: 2,
-      title: "A importância dos contratos bem elaborados para pequenos negócios",
-      excerpt: "Entenda como contratos claros e objetivos podem proteger seu empreendimento e evitar problemas futuros...",
-      date: "03 Abr 2025",
-      readTime: "4 min de leitura"
-    },
-    {
-      id: 3,
-      title: "Direitos trabalhistas: O que empregadores precisam estar atentos",
-      excerpt: "Um guia completo sobre as principais responsabilidades trabalhistas que todo empresário deve conhecer...",
-      date: "28 Mar 2025",
-      readTime: "6 min de leitura"
-    }
-  ];
+  // Get posts from BlogContext
+  const { posts } = useBlog();
+  
+  // Get latest 3 posts for display
+  const latestPosts = [...posts]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   return (
     <section id="blog" className="py-20 bg-white" ref={ref}>
@@ -56,7 +40,7 @@ const BlogSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {latestPosts.map((post, index) => (
             <div 
               key={index}
               className={cn(
