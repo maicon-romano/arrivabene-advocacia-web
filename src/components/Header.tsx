@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Phone, Mail, Instagram, Facebook, MapPin, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Header = () => {
@@ -42,38 +42,15 @@ const Header = () => {
         scrolled ? "bg-primary shadow-md py-2" : "bg-primary/80 py-4"
       )}
     >
-      {/* Top bar with contact info */}
+      {/* Main header */}
       <div className="container mx-auto px-4">
-        <div className="hidden md:flex justify-end items-center text-white text-sm mb-2">
-          <a href="tel:+5519998223557" className="flex items-center mr-6 hover:text-accent transition-colors">
-            <Phone size={16} className="mr-2" />
-            (19) 9 9822-3557
-          </a>
-          <a href="mailto:contato@arrivabeneadvocacia.com.br" className="flex items-center mr-6 hover:text-accent transition-colors">
-            <Mail size={16} className="mr-2" />
-            contato@arrivabeneadvocacia.com.br
-          </a>
-          <div className="flex items-center space-x-3">
-            <a href="https://instagram.com" className="hover:text-accent transition-colors" aria-label="Instagram">
-              <Instagram size={16} />
-            </a>
-            <a href="https://facebook.com" className="hover:text-accent transition-colors" aria-label="Facebook">
-              <Facebook size={16} />
-            </a>
-            <a href="https://maps.google.com" className="hover:text-accent transition-colors" aria-label="Localização">
-              <MapPin size={16} />
-            </a>
-          </div>
-        </div>
-        
-        {/* Main header */}
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
             <img 
-              src="/lovable-uploads/1cd7e80b-d083-41c5-93cd-068b63e2cd46.png" 
+              src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
               alt="Arrivabene Advocacia" 
-              className="h-12 md:h-14 mr-3" 
+              className="h-auto w-48 md:w-64" 
             />
           </div>
           
@@ -111,28 +88,6 @@ const Header = () => {
             <li><button onClick={() => scrollToSection("contato")} className="w-full text-left py-2 hover:text-accent transition-colors">Contato</button></li>
             <li><button onClick={() => scrollToSection("blog")} className="w-full text-left py-2 hover:text-accent transition-colors">Blog</button></li>
           </ul>
-          
-          <div className="mt-6 flex flex-col space-y-4 text-white text-sm">
-            <a href="tel:+5519998223557" className="flex items-center hover:text-accent transition-colors">
-              <Phone size={16} className="mr-2" />
-              (19) 9 9822-3557
-            </a>
-            <a href="mailto:contato@arrivabeneadvocacia.com.br" className="flex items-center hover:text-accent transition-colors">
-              <Mail size={16} className="mr-2" />
-              contato@arrivabeneadvocacia.com.br
-            </a>
-            <div className="flex items-center space-x-4 pt-2">
-              <a href="https://instagram.com" className="hover:text-accent transition-colors" aria-label="Instagram">
-                <Instagram size={20} />
-              </a>
-              <a href="https://facebook.com" className="hover:text-accent transition-colors" aria-label="Facebook">
-                <Facebook size={20} />
-              </a>
-              <a href="https://maps.google.com" className="hover:text-accent transition-colors" aria-label="Localização">
-                <MapPin size={20} />
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </header>

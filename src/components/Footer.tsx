@@ -19,11 +19,11 @@ const Footer = () => {
         <div className="py-12 grid md:grid-cols-3 gap-8">
           {/* Logo and About */}
           <div>
-            <div className="flex items-center mb-4">
+            <div className="mb-6">
               <img 
-                src="/lovable-uploads/1cd7e80b-d083-41c5-93cd-068b63e2cd46.png" 
+                src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
                 alt="Arrivabene Advocacia" 
-                className="h-12 mr-3"
+                className="w-full h-auto max-w-xs"
               />
             </div>
             <p className="mb-4 text-gray-300">
