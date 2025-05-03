@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import crypto from 'crypto-js';
+import * as CryptoJS from 'crypto-js';
 
 interface AdminAuth {
   isAuthenticated: boolean;
@@ -70,7 +70,7 @@ export const useAdminAuth = (): AdminAuth => {
   }, [lockUntil, isLocked]);
   
   const hashPassword = (password: string): string => {
-    return crypto.SHA256(password + SALT).toString();
+    return CryptoJS.SHA256(password + SALT).toString();
   };
   
   const login = (username: string, password: string): boolean => {
@@ -81,9 +81,10 @@ export const useAdminAuth = (): AdminAuth => {
     
     // Check credentials - in a real app, you'd validate against a database or API
     const correctUsername = "admin";
-    const correctPassword = "admin";
+    const correctPasswordHash = hashPassword("admin");
+    const inputPasswordHash = hashPassword(password);
     
-    if (username === correctUsername && password === correctPassword) {
+    if (username === correctUsername && inputPasswordHash === correctPasswordHash) {
       setIsAuthenticated(true);
       setLoginAttempts(0);
       return true;
