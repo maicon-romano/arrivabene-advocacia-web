@@ -50,9 +50,10 @@ const BlogHeader = () => {
   return (
     <header 
       className={cn(
-        "fixed w-full top-0 z-50 transition-all duration-300",
-        scrolled ? "bg-primary shadow-md py-2" : "bg-primary/80 py-4"
+        "fixed w-full z-50 transition-all duration-300",
+        scrolled ? "bg-primary shadow-md py-2" : "bg-primary py-4"
       )}
+      style={{ top: 0 }} // Ensure the header is pinned to the top
     >
       {/* Main header */}
       <div className="container mx-auto px-4">

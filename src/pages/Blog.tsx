@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
@@ -83,11 +82,11 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <BlogHeader />
-      <main>
+      <main className="flex-grow pt-16"> {/* Add padding-top to account for fixed header */}
         {/* Hero Section */}
-        <section className="bg-primary py-20 relative overflow-hidden mt-16">
+        <section className="bg-primary py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">

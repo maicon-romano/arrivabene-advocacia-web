@@ -83,7 +83,7 @@ export const useAdminAuth = (): AdminAuth => {
       return false;
     }
     
-    // Check credentials - in a real app, you'd validate against a database or API
+    // Check credentials
     const inputPasswordHash = hashPassword(password);
     
     if (username === ADMIN_USERNAME && inputPasswordHash === ADMIN_PASSWORD_HASH) {
