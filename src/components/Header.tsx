@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,7 +63,16 @@ const Header = () => {
               <li><button onClick={() => scrollToSection("servicos")} className="hover:text-accent transition-colors">Serviços</button></li>
               <li><button onClick={() => scrollToSection("por-que-nos")} className="hover:text-accent transition-colors">Por que Nós</button></li>
               <li><button onClick={() => scrollToSection("contato")} className="hover:text-accent transition-colors">Contato</button></li>
-              <li><button onClick={() => scrollToSection("blog")} className="hover:text-accent transition-colors">Blog</button></li>
+              <li><Link to="/blog" className="hover:text-accent transition-colors">Blog</Link></li>
+              <li>
+                <Link 
+                  to="/admin" 
+                  className="hover:text-accent/80 transition-colors opacity-60 text-sm"
+                  title="Painel Administrativo"
+                >
+                  <Settings size={16} className="inline-block" />
+                </Link>
+              </li>
             </ul>
           </nav>
           
@@ -86,7 +96,15 @@ const Header = () => {
             <li><button onClick={() => scrollToSection("servicos")} className="w-full text-left py-2 hover:text-accent transition-colors">Serviços</button></li>
             <li><button onClick={() => scrollToSection("por-que-nos")} className="w-full text-left py-2 hover:text-accent transition-colors">Por que Nós</button></li>
             <li><button onClick={() => scrollToSection("contato")} className="w-full text-left py-2 hover:text-accent transition-colors">Contato</button></li>
-            <li><button onClick={() => scrollToSection("blog")} className="w-full text-left py-2 hover:text-accent transition-colors">Blog</button></li>
+            <li><Link to="/blog" className="block py-2 hover:text-accent transition-colors">Blog</Link></li>
+            <li>
+              <Link 
+                to="/admin" 
+                className="block py-2 hover:text-accent/80 transition-colors opacity-60 text-sm"
+              >
+                <Settings size={16} className="inline-block mr-2" /> Painel Admin
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -34,15 +34,17 @@ const FloatingButtons = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-      {/* WhatsApp Button */}
+      {/* WhatsApp Button - dynamically positioned based on back-to-top visibility */}
       <button
         onClick={openWhatsApp}
         className={cn(
           "bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg",
           "transition-all duration-300 hover:scale-110",
-          "flex items-center justify-center"
+          "flex items-center justify-center",
+          showBackToTop ? "mb-0" : "mb-0" // No extra margin when back-to-top is hidden
         )}
         aria-label="Contato via WhatsApp"
+        style={{ transform: `translateY(${showBackToTop ? '0' : '0'}px)` }}
       >
         <MessageCircle size={24} />
       </button>
@@ -54,8 +56,8 @@ const FloatingButtons = () => {
           "bg-accent hover:bg-accent/90 text-white p-3 rounded-full shadow-lg",
           "transition-all duration-300 hover:scale-110",
           "flex items-center justify-center",
-          "opacity-0 scale-0",
-          showBackToTop && "opacity-100 scale-100"
+          "opacity-0 scale-0 absolute",
+          showBackToTop && "opacity-100 scale-100 relative"
         )}
         aria-label="Voltar ao topo"
       >

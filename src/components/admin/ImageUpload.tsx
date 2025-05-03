@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
+import { Upload, Trash2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ImageUploadProps {
   onImageChange: (imageUrl: string) => void;
@@ -44,12 +45,26 @@ const ImageUpload = ({ onImageChange, currentImage }: ImageUploadProps) => {
     reader.readAsDataURL(file);
   };
 
+  const handleRemoveImage = () => {
+    setPreviewUrl(null);
+    onImageChange('');
+  };
+
   return (
     <Card>
       <CardContent className="p-4">
         <div className="space-y-4">
           <div className="flex flex-col space-y-2">
             <Label htmlFor="cover-image">Imagem de Capa</Label>
+            
+            <Alert className="bg-blue-50 border-blue-200 text-blue-800 mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Para melhor visualização, recomendamos imagens com proporção 16:9 (1280x720px).
+                Tamanho máximo: 2MB.
+              </AlertDescription>
+            </Alert>
+            
             <div className="flex items-center space-x-4">
               <Button
                 type="button"
@@ -60,8 +75,19 @@ const ImageUpload = ({ onImageChange, currentImage }: ImageUploadProps) => {
                 className="w-full"
               >
                 <Upload size={16} className="mr-2" />
-                {isUploading ? 'Carregando...' : 'Carregar Imagem'}
+                {isUploading ? 'Carregando...' : previewUrl ? 'Trocar Imagem' : 'Carregar Imagem'}
               </Button>
+              {previewUrl && (
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleRemoveImage}
+                >
+                  <Trash2 size={16} className="mr-2" />
+                  Remover
+                </Button>
+              )}
               <input
                 type="file"
                 id="cover-image"

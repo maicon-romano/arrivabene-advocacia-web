@@ -16,6 +16,10 @@ const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME_MINUTES = 15;
 const SALT = "arrivabene_adv_salt";
 
+// Admin credentials
+const ADMIN_USERNAME = "adv.arrivabene@gmail.com";
+const ADMIN_PASSWORD_HASH = "f27feef1101a1a1decb21fa9d1a9b0c39c767165e00ee6e8945c10eee8b0c304"; // EAdigital2025 + salt
+
 export const useAdminAuth = (): AdminAuth => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem('adminAuthenticated') === 'true';
@@ -80,11 +84,9 @@ export const useAdminAuth = (): AdminAuth => {
     }
     
     // Check credentials - in a real app, you'd validate against a database or API
-    const correctUsername = "admin";
-    const correctPasswordHash = hashPassword("admin");
     const inputPasswordHash = hashPassword(password);
     
-    if (username === correctUsername && inputPasswordHash === correctPasswordHash) {
+    if (username === ADMIN_USERNAME && inputPasswordHash === ADMIN_PASSWORD_HASH) {
       setIsAuthenticated(true);
       setLoginAttempts(0);
       return true;

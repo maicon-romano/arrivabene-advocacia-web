@@ -50,8 +50,16 @@ const BlogSection = () => {
               )}
               style={{ animationDelay: `${0.3 + index * 0.2}s` }}
             >
-              <div className="h-40 bg-gray-100 flex items-center justify-center">
-                <span className="text-primary opacity-50 text-lg">Imagem do Post</span>
+              <div className="h-40 bg-gray-100 relative">
+                {post.coverImage ? (
+                  <img 
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="flex items-center justify-center h-full text-primary opacity-50 text-lg">Imagem do Post</span>
+                )}
               </div>
               <div className="p-6">
                 <div className="flex items-center text-sm text-gray-500 mb-3">

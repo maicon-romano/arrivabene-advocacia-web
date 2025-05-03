@@ -35,6 +35,35 @@ const BlogPost = () => {
     }
   }, [id, post, toast, navigate]);
   
+  // Find related posts (3 previous posts excluding current post)
+  const getRelatedPosts = () => {
+    if (!post) return [];
+    
+    // Sort posts by ID in descending order (assuming newer posts have higher IDs)
+    const sortedPosts = [...posts]
+      .sort((a, b) => b.id - a.id);
+    
+    // Find current post index
+    const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+    
+    // Get up to 3 previous posts
+    const previousPosts = [];
+    let count = 0;
+    let index = 0;
+    
+    while (count < 3 && index < sortedPosts.length) {
+      if (index !== currentIndex) {
+        previousPosts.push(sortedPosts[index]);
+        count++;
+      }
+      index++;
+    }
+    
+    return previousPosts;
+  };
+  
+  const relatedPosts = getRelatedPosts();
+  
   if (!post) {
     return (
       <div className="min-h-screen">
@@ -86,7 +115,17 @@ const BlogPost = () => {
             </div>
             
             {/* Featured image */}
-            <div className="w-full aspect-video bg-gray-100 mb-8 rounded-lg"></div>
+            {post.coverImage ? (
+              <div className="w-full aspect-video bg-gray-100 mb-8 rounded-lg overflow-hidden">
+                <img 
+                  src={post.coverImage} 
+                  alt={post.title}
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ) : (
+              <div className="w-full aspect-video bg-gray-100 mb-8 rounded-lg"></div>
+            )}
             
             {/* Content */}
             <div className="prose max-w-none">
@@ -105,15 +144,21 @@ const BlogPost = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-primary mb-6 text-center">Artigos Relacionados</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {posts
-                .filter(p => p.id !== post.id && p.category === post.category)
-                .slice(0, 3)
-                .map(relatedPost => (
+              {relatedPosts.length > 0 ? (
+                relatedPosts.map(relatedPost => (
                   <div 
                     key={relatedPost.id}
                     className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
                   >
-                    <div className="h-40 bg-gray-100"></div>
+                    <div className="h-40 bg-gray-100 relative">
+                      {relatedPost.coverImage && (
+                        <img 
+                          src={relatedPost.coverImage}
+                          alt={relatedPost.title}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    </div>
                     <div className="p-5">
                       <h3 className="text-lg font-semibold text-primary mb-2">{relatedPost.title}</h3>
                       <Link 
@@ -125,7 +170,12 @@ const BlogPost = () => {
                       </Link>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-8">
+                  <p className="text-gray-500">Não há artigos relacionados disponíveis no momento.</p>
+                </div>
+              )}
             </div>
           </div>
         </section>

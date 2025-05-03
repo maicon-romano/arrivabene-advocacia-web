@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +9,8 @@ import { useBlog, BlogPost } from '../../contexts/BlogContext';
 import PostList from './PostList';
 import CategoryManager from './CategoryManager';
 import NewPost from './NewPost';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -27,6 +29,10 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     deleteCategory
   } = useBlog();
 
+  const todayFormatted = format(new Date(), 'dd MMM yyyy', { locale: ptBR })
+    .replace('.', '')
+    .replace(/^\w/, c => c.toUpperCase());
+
   // New post state
   const [newPost, setNewPost] = useState<Omit<BlogPost, 'id'>>({
     title: '',
@@ -34,11 +40,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     content: '',
     coverImage: '',
     category: categories.filter(c => c !== 'Todos')[0] || 'Outros',
-    date: new Date().toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    }).replace('.', ''),
+    date: todayFormatted,
     readTime: '5 min de leitura'
   });
 
@@ -62,11 +64,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
       content: '',
       coverImage: '',
       category: categories.filter(c => c !== 'Todos')[0] || 'Outros',
-      date: new Date().toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-      }).replace('.', ''),
+      date: todayFormatted,
       readTime: '5 min de leitura'
     });
 
@@ -97,6 +95,12 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     }
 
     addCategory(category);
+    
+    // Update the new post form to use the new category
+    setNewPost(prev => ({
+      ...prev,
+      category: category
+    }));
     
     toast({
       title: "Categoria criada com sucesso!",
@@ -158,7 +162,15 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     <div className="min-h-screen bg-gray-100">
       <header className="bg-primary text-white p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">Painel Administrativo</h1>
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold">Painel Administrativo</h1>
+            <Link 
+              to="/" 
+              className="ml-4 text-white/70 text-sm hover:text-white"
+            >
+              Visualizar site
+            </Link>
+          </div>
           <Button variant="outline" size="sm" onClick={onLogout} className="text-white">
             <LogOut size={16} className="mr-2" /> Sair
           </Button>

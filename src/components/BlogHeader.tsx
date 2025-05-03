@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 
@@ -50,7 +50,7 @@ const BlogHeader = () => {
   return (
     <header 
       className={cn(
-        "fixed w-full z-50 transition-all duration-300",
+        "fixed w-full top-0 z-50 transition-all duration-300",
         scrolled ? "bg-primary shadow-md py-2" : "bg-primary/80 py-4"
       )}
     >
@@ -75,7 +75,6 @@ const BlogHeader = () => {
                 <Link 
                   to="/" 
                   className={`hover:text-accent transition-colors ${isActive('/')}`}
-                  onClick={() => scrollToSection("inicio")}
                 >
                   Início
                 </Link>
@@ -124,6 +123,15 @@ const BlogHeader = () => {
                   Blog
                 </Link>
               </li>
+              <li>
+                <Link 
+                  to="/admin" 
+                  className="hover:text-accent/80 transition-colors opacity-60 text-sm"
+                  title="Painel Administrativo"
+                >
+                  <Settings size={16} className="inline-block" />
+                </Link>
+              </li>
             </ul>
           </nav>
           
@@ -146,7 +154,6 @@ const BlogHeader = () => {
               <Link 
                 to="/" 
                 className={`block py-2 hover:text-accent transition-colors ${isActive('/')}`}
-                onClick={() => scrollToSection("inicio")}
               >
                 Início
               </Link>
@@ -193,6 +200,14 @@ const BlogHeader = () => {
                 className={`block py-2 hover:text-accent transition-colors ${isActive('/blog')}`}
               >
                 Blog
+              </Link>
+            </li>
+            <li>
+              <Link 
+                to="/admin" 
+                className="block py-2 hover:text-accent/80 transition-colors opacity-60 text-sm"
+              >
+                <Settings size={16} className="inline-block mr-2" /> Painel Admin
               </Link>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { BlogPost } from '../../contexts/BlogContext';
 import ImageUpload from './ImageUpload';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
 
 interface NewPostProps {
   newPost: Omit<BlogPost, 'id'>;
@@ -20,6 +25,42 @@ const NewPost = ({ newPost, categories, onNewPostChange, onCreatePost }: NewPost
   const handleImageChange = (imageUrl: string) => {
     onNewPostChange({...newPost, coverImage: imageUrl});
   };
+  
+  const handleDateChange = (date: Date | undefined) => {
+    if (date) {
+      const formattedDate = format(date, 'dd MMM yyyy', { locale: ptBR })
+        .replace('.', '')
+        .replace(/^\w/, c => c.toUpperCase());
+      onNewPostChange({...newPost, date: formattedDate});
+    }
+  };
+  
+  // Parse the current date string to use with the calendar
+  const parseCurrentDate = (): Date => {
+    try {
+      const dateParts = newPost.date.split(' ');
+      if (dateParts.length === 3) {
+        const day = parseInt(dateParts[0]);
+        const monthMap: Record<string, number> = {
+          'Jan': 0, 'Fev': 1, 'Mar': 2, 'Abr': 3, 'Mai': 4, 'Jun': 5,
+          'Jul': 6, 'Ago': 7, 'Set': 8, 'Out': 9, 'Nov': 10, 'Dez': 11
+        };
+        const month = monthMap[dateParts[1]];
+        const year = parseInt(dateParts[2]);
+        
+        if (!isNaN(day) && month !== undefined && !isNaN(year)) {
+          return new Date(year, month, day);
+        }
+      }
+    } catch (error) {
+      console.error('Error parsing date:', error);
+    }
+    
+    // Default to current date if parsing fails
+    return new Date();
+  };
+  
+  const currentDate = parseCurrentDate();
 
   return (
     <Card>
@@ -95,12 +136,30 @@ const NewPost = ({ newPost, categories, onNewPostChange, onCreatePost }: NewPost
             </div>
             <div className="grid gap-2">
               <Label htmlFor="post-date">Data</Label>
-              <Input 
-                id="post-date" 
-                placeholder="Ex: 01 Jan 2025" 
-                value={newPost.date}
-                onChange={(e) => onNewPostChange({...newPost, date: e.target.value})}
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    id="post-date"
+                    variant={"outline"}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !newPost.date && "text-muted-foreground"
+                    )}
+                  >
+                    <Calendar className="mr-2 h-4 w-4" />
+                    {newPost.date || "Selecione uma data"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarComponent
+                    mode="single"
+                    selected={currentDate}
+                    onSelect={handleDateChange}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </div>
