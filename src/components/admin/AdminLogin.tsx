@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Lock, Home } from "lucide-react";
+import { Lock, Home, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface AdminLoginProps {
@@ -19,6 +19,7 @@ const AdminLogin = ({ onLogin, isLocked, loginAttempts, lockTimeRemaining }: Adm
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +29,10 @@ const AdminLogin = ({ onLogin, isLocked, loginAttempts, lockTimeRemaining }: Adm
     }
 
     onLogin(username, password);
-    setError('Credenciais inválidas');
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const maxAttempts = 5;
@@ -64,14 +68,24 @@ const AdminLogin = ({ onLogin, isLocked, loginAttempts, lockTimeRemaining }: Adm
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Senha</Label>
-                  <Input 
-                    id="password" 
-                    type="password"
-                    placeholder="Digite sua senha" 
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    autoComplete="current-password"
-                  />
+                  <div className="relative">
+                    <Input 
+                      id="password" 
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Digite sua senha" 
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                    />
+                    <button 
+                      type="button"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                      onClick={togglePasswordVisibility}
+                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 

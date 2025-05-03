@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import * as CryptoJS from 'crypto-js';
 
@@ -17,7 +18,7 @@ const SALT = "arrivabene_adv_salt";
 
 // Admin credentials
 const ADMIN_USERNAME = "adv.arrivabene@gmail.com";
-const ADMIN_PASSWORD_HASH = "6dc69da3640985c4abd2efe4ccae6d7d9ba38f78c9a70a239e84ae1792deb2d6"; // Hash para EAdigital2025 + salt
+const ADMIN_PASSWORD = "EAdigital2025"; // Senha em texto puro para comparação direta
 
 export const useAdminAuth = (): AdminAuth => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
@@ -72,21 +73,14 @@ export const useAdminAuth = (): AdminAuth => {
     return () => clearInterval(interval);
   }, [lockUntil, isLocked]);
   
-  const hashPassword = (password: string): string => {
-    return CryptoJS.SHA256(password + SALT).toString();
-  };
-  
   const login = (username: string, password: string): boolean => {
     // If account is locked, deny login
     if (isLocked) {
       return false;
     }
     
-    // Check credentials
-    const inputPasswordHash = hashPassword(password);
-    console.log("Input password hash:", inputPasswordHash); // Para debug
-    
-    if (username === ADMIN_USERNAME && inputPasswordHash === ADMIN_PASSWORD_HASH) {
+    // Verificação simples e direta
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       setIsAuthenticated(true);
       setLoginAttempts(0);
       return true;
