@@ -1,4 +1,3 @@
-
 import { 
   collection, 
   addDoc, 
@@ -26,31 +25,39 @@ const COLLECTION_NAME = 'posts';
 
 export const createPost = async (post: Omit<Post, 'id' | 'createdAt'>) => {
   try {
-    const docRef = await addDoc(collection(db, COLLECTION_NAME), {
+    console.log("Salvando post no Firestore:", post);
+    const postWithTimestamp = {
       ...post,
       createdAt: Timestamp.now()
-    });
+    };
+    
+    const docRef = await addDoc(collection(db, COLLECTION_NAME), postWithTimestamp);
+    console.log("Post salvo com sucesso, ID:", docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error('Error creating post:', error);
+    console.error('Erro detalhado ao criar post:', error);
     throw error;
   }
 };
 
 export const getAllPosts = async (): Promise<Post[]> => {
   try {
+    console.log("Buscando todos os posts...");
     const q = query(
       collection(db, COLLECTION_NAME),
       orderBy('createdAt', 'desc')
     );
     
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({
+    const posts = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     })) as Post[];
+    
+    console.log(`${posts.length} posts encontrados`);
+    return posts;
   } catch (error) {
-    console.error('Error getting posts:', error);
+    console.error('Erro ao buscar posts:', error);
     throw error;
   }
 };
@@ -66,7 +73,7 @@ export const getPostById = async (id: string): Promise<Post | null> => {
       return null;
     }
   } catch (error) {
-    console.error('Error getting post:', error);
+    console.error('Erro ao buscar post:', error);
     throw error;
   }
 };
@@ -77,7 +84,7 @@ export const updatePost = async (id: string, data: Partial<Omit<Post, 'id'>>) =>
     await updateDoc(docRef, data);
     return true;
   } catch (error) {
-    console.error('Error updating post:', error);
+    console.error('Erro ao atualizar post:', error);
     throw error;
   }
 };
@@ -88,7 +95,7 @@ export const deletePost = async (id: string) => {
     await deleteDoc(docRef);
     return true;
   } catch (error) {
-    console.error('Error deleting post:', error);
+    console.error('Erro ao deletar post:', error);
     throw error;
   }
 };

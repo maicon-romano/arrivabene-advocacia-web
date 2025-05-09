@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Plus, Loader2, AlertCircle } from "lucide-react";
+import { Plus, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { uploadImageToCloudinary } from '../../lib/cloudinary';
 import { createPost } from '../../services/posts';
@@ -53,6 +53,7 @@ const PostForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!title || !content || !image || !currentUser) {
       setError('Por favor, preencha todos os campos e selecione uma imagem');
       return;
@@ -62,9 +63,12 @@ const PostForm = () => {
       setIsSubmitting(true);
       setError('');
       
+      console.log("Iniciando upload da imagem para o Cloudinary...");
       // Upload image to Cloudinary
       const imageUrl = await uploadImageToCloudinary(image);
+      console.log("Imagem enviada com sucesso:", imageUrl);
       
+      console.log("Salvando post no Firestore...");
       // Create post in Firestore
       await createPost({
         title,
@@ -72,6 +76,7 @@ const PostForm = () => {
         imageUrl,
         author: currentUser.email || 'Unknown',
       });
+      console.log("Post salvo com sucesso!");
       
       // Reset form
       setTitle('');

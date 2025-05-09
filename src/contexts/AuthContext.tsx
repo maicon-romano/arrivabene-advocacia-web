@@ -4,7 +4,8 @@ import {
   User, 
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  UserCredential
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 
@@ -38,12 +39,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return unsubscribe;
   }, []);
 
-  const login = async (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email: string, password: string): Promise<void> => {
+    await signInWithEmailAndPassword(auth, email, password);
+    // O setCurrentUser será feito pelo onAuthStateChanged
   };
 
-  const logout = async () => {
-    return signOut(auth);
+  const logout = async (): Promise<void> => {
+    await signOut(auth);
+    // O setCurrentUser será feito pelo onAuthStateChanged
   };
 
   const value = {
