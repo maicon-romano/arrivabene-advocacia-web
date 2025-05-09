@@ -2,12 +2,8 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 const HeroSection = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById("contato");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const whatsappUrl =
+    "https://api.whatsapp.com/send/?phone=5519998223557&text=Ol%C3%A1!+Quero+saber+mais+sobre+os+servi%C3%A7os+jur%C3%ADdicos.+Vim+pelo+site.&type=phone_number&app_absent=0";
 
   return (
     <section
@@ -40,17 +36,19 @@ const HeroSection = () => {
             eficiência e atenção aos detalhes, com atendimento exclusivo.
           </p>
 
-          <button
-            onClick={scrollToContact}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
-              "bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-md",
+              "inline-block bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-md",
               "transition-all transform hover:scale-105 duration-300",
               "text-lg font-semibold shadow-lg opacity-0 animate-fade-in font-lora"
             )}
             style={{ animationDelay: "0.9s" }}
           >
-            Entre em contato agora
-          </button>
+            Fale conosco no WhatsApp
+          </a>
         </div>
       </div>
 

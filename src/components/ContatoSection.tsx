@@ -26,7 +26,6 @@ const ContatoSection = () => {
     email: "",
     telefone: "",
     assunto: "",
-    mensagem: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,23 +44,22 @@ const ContatoSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Use EmailJS to send email
     emailjs
       .send(
-        "service_fqu40yi", // Service ID
-        "template_gs2so7e", // Template ID
+        "service_fqu40yi",
+        "template_gs2so7e",
         {
           from_name: formData.nome,
           to_name: "Arrivabene Advocacia",
           from_email: formData.email,
           email: formData.email,
           to_email: "contato@arrivabeneadvocacia.com.br",
-          message: formData.mensagem,
+          message: formData.assunto,
           reply_to: formData.email,
           phone: formData.telefone,
           subject: formData.assunto,
         },
-        "Gl9wbUo14WsEMl_uf" // Public Key
+        "Gl9wbUo14WsEMl_uf"
       )
       .then((response) => {
         console.log("Email sent successfully!", response);
@@ -70,13 +68,11 @@ const ContatoSection = () => {
           description: "Entraremos em contato em breve!",
         });
 
-        // Reset form
         setFormData({
           nome: "",
           email: "",
           telefone: "",
           assunto: "",
-          mensagem: "",
         });
       })
       .catch((error) => {
@@ -106,7 +102,10 @@ const ContatoSection = () => {
   };
 
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/5519998223557", "_blank");
+    window.open(
+      "https://api.whatsapp.com/send/?phone=5519998223557&text=Olá!+Quero+saber+mais+sobre+os+serviços+jurídicos.+Vim+pelo+site.&type=phone_number&app_absent=0",
+      "_blank"
+    );
   };
 
   return (
@@ -135,7 +134,6 @@ const ContatoSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
           <div
             className={cn(
               "bg-white p-8 rounded-lg shadow-lg",
@@ -205,36 +203,17 @@ const ContatoSection = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-6">
                 <label
                   htmlFor="assunto"
                   className="block text-gray-700 mb-2 font-lora"
                 >
                   Assunto
                 </label>
-                <input
-                  type="text"
+                <textarea
                   id="assunto"
                   name="assunto"
                   value={formData.assunto}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
-                  required
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              <div className="mb-6">
-                <label
-                  htmlFor="mensagem"
-                  className="block text-gray-700 mb-2 font-lora"
-                >
-                  Mensagem
-                </label>
-                <textarea
-                  id="mensagem"
-                  name="mensagem"
-                  value={formData.mensagem}
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
@@ -332,7 +311,7 @@ const ContatoSection = () => {
                 <div className="flex items-center pt-4">
                   <h4 className="font-medium mr-4 font-lora">Redes Sociais:</h4>
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/arrivabeneadvocacia/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent hover:text-primary mr-4 transition-colors"
@@ -340,7 +319,7 @@ const ContatoSection = () => {
                     <Instagram size={20} />
                   </a>
                   <a
-                    href="https://facebook.com"
+                    href="https://www.facebook.com/profile.php?id=61575479817862"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent hover:text-primary transition-colors"
@@ -368,16 +347,22 @@ const ContatoSection = () => {
               )}
               style={{ animationDelay: "0.7s" }}
             >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14736.529048044073!2d-47.183713873365825!3d-22.57415605801065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c88d7fa9c9e5b7%3A0x90533d5a74897a61!2sEduardo%20Arrivabene%20Advocacia!5e0!3m2!1spt-BR!2sbr!4v1746056828878!5m2!1spt-BR!2sbr"
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localização Arrivabene Advocacia"
-              ></iframe>
+              <a
+                href="https://maps.app.goo.gl/pr7z71w7Lj4nEkEn7"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14736.529048044073!2d-47.183713873365825!3d-22.57415605801065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c88d7fa9c9e5b7%3A0x90533d5a74897a61!2sEduardo%20Arrivabene%20Advocacia!5e0!3m2!1spt-BR!2sbr!4v1746056828878!5m2!1spt-BR!2sbr"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0, pointerEvents: "none" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Localização Arrivabene Advocacia"
+                ></iframe>
+              </a>
             </div>
           </div>
         </div>

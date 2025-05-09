@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ArrowUp, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -29,7 +28,10 @@ const FloatingButtons = () => {
   };
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/5519998223557", "_blank");
+    window.open(
+      "https://api.whatsapp.com/send/?phone=5519998223557&text=Ol%C3%A1!+Quero+saber+mais+sobre+os+servi%C3%A7os+jur%C3%ADdicos.+Vim+pelo+site.&type=phone_number&app_absent=0",
+      "_blank"
+    );
   };
 
   return (
@@ -44,7 +46,7 @@ const FloatingButtons = () => {
           showBackToTop ? "mb-0" : "mb-0" // No extra margin when back-to-top is hidden
         )}
         aria-label="Contato via WhatsApp"
-        style={{ transform: `translateY(${showBackToTop ? '0' : '0'}px)` }}
+        style={{ transform: `translateY(${showBackToTop ? "0" : "0"}px)` }}
       >
         <MessageCircle size={24} />
       </button>
