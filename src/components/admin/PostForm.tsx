@@ -5,14 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Plus, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { Plus, Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { uploadImageToCloudinary } from '../../lib/cloudinary';
 import { createPost } from '../../services/posts';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from "@/components/ui/use-toast";
 
-const PostForm = () => {
+interface PostFormProps {
+  onPostCreated?: () => void;
+}
+
+const PostForm = ({ onPostCreated }: PostFormProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
@@ -84,10 +88,15 @@ const PostForm = () => {
       setImage(null);
       setPreview(null);
       
-      toast({
-        title: "Postagem criada com sucesso!",
-        description: "Sua publicação já está disponível no blog.",
-      });
+      // Notify parent component that a post was created
+      if (onPostCreated) {
+        onPostCreated();
+      } else {
+        toast({
+          title: "Postagem criada com sucesso!",
+          description: "Sua publicação já está disponível no blog.",
+        });
+      }
     } catch (err) {
       console.error('Error creating post:', err);
       setError('Ocorreu um erro ao criar a postagem. Tente novamente.');
