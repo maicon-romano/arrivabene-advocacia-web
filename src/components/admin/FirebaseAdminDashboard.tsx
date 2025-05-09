@@ -15,6 +15,17 @@ import { useAuth } from "../../contexts/AuthContext";
 import PostForm from "./PostForm";
 import { getAllPosts, Post, deletePost, updatePost } from '../../services/posts';
 import { uploadImageToCloudinary } from '../../lib/cloudinary';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Editor } from '@tinymce/tinymce-react';
 
 const FirebaseAdminDashboard = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -32,6 +43,7 @@ const FirebaseAdminDashboard = () => {
   const [editImage, setEditImage] = useState<File | null>(null);
   const [isEditSubmitting, setIsEditSubmitting] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [confirmDeletePostId, setConfirmDeletePostId] = useState<string | null>(null);
 
   const fetchPosts = async () => {
     try {
@@ -69,22 +81,21 @@ const FirebaseAdminDashboard = () => {
   };
 
   const handleDeletePost = async (id: string) => {
-    if (window.confirm('Tem certeza que deseja excluir esta postagem?')) {
-      try {
-        await deletePost(id);
-        setPosts(posts.filter(post => post.id !== id));
-        toast({
-          title: "Postagem excluída!",
-          description: "A postagem foi removida com sucesso.",
-        });
-      } catch (err) {
-        console.error('Error deleting post:', err);
-        toast({
-          title: "Erro ao excluir",
-          description: "Ocorreu um erro ao tentar excluir a postagem.",
-          variant: "destructive"
-        });
-      }
+    try {
+      await deletePost(id);
+      setPosts(posts.filter(post => post.id !== id));
+      toast({
+        title: "Postagem excluída!",
+        description: "A postagem foi removida com sucesso.",
+      });
+      setConfirmDeletePostId(null);
+    } catch (err) {
+      console.error('Error deleting post:', err);
+      toast({
+        title: "Erro ao excluir",
+        description: "Ocorreu um erro ao tentar excluir a postagem.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -265,7 +276,7 @@ const FirebaseAdminDashboard = () => {
                       <div className="p-4 flex-1">
                         <h3 className="font-medium text-lg mb-2">{post.title}</h3>
                         <p className="text-sm text-gray-500 mb-4">
-                          {post.content.substring(0, 100)}...
+                          {post.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
                         </p>
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-gray-500">
@@ -285,7 +296,7 @@ const FirebaseAdminDashboard = () => {
                             <Button 
                               variant="destructive" 
                               size="sm" 
-                              onClick={() => post.id && handleDeletePost(post.id)}
+                              onClick={() => setConfirmDeletePostId(post.id)}
                             >
                               Excluir
                             </Button>
@@ -301,56 +312,71 @@ const FirebaseAdminDashboard = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Edit Post Dialog */}
+      {/* Edit Post Dialog with scrollable content */}
       <Dialog 
         open={editingPost !== null} 
         onOpenChange={(open) => !open && setEditingPost(null)}
       >
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="max-w-3xl h-[90vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle>Editar Postagem</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="edit-title">Título</Label>
-              <Input 
-                id="edit-title" 
-                value={editTitle} 
-                onChange={e => setEditTitle(e.target.value)} 
-                disabled={isEditSubmitting}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="edit-content">Conteúdo</Label>
-              <Textarea 
-                id="edit-content" 
-                value={editContent} 
-                onChange={e => setEditContent(e.target.value)} 
-                rows={6} 
-                disabled={isEditSubmitting}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="edit-image">Imagem</Label>
-              <Input 
-                id="edit-image" 
-                type="file" 
-                accept="image/*" 
-                onChange={handleEditImageChange} 
-                disabled={isEditSubmitting}
-              />
-              {previewUrl && (
-                <div className="mt-2 relative border rounded-md overflow-hidden h-40">
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
+          <div className="overflow-y-auto flex-grow pr-2">
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-title">Título</Label>
+                <Input 
+                  id="edit-title" 
+                  value={editTitle} 
+                  onChange={e => setEditTitle(e.target.value)} 
+                  disabled={isEditSubmitting}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-image">Imagem de Banner</Label>
+                <Input 
+                  id="edit-image" 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleEditImageChange} 
+                  disabled={isEditSubmitting}
+                />
+                {previewUrl && (
+                  <div className="mt-2 relative border rounded-md overflow-hidden h-40">
+                    <img
+                      src={previewUrl}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-content">Conteúdo</Label>
+                <Editor
+                  id="edit-content"
+                  value={editContent}
+                  onEditorChange={(content) => setEditContent(content)}
+                  init={{
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'emoticons'
+                    ],
+                    toolbar: 'undo redo | blocks | ' +
+                      'bold italic forecolor | alignleft aligncenter ' +
+                      'alignright alignjustify | bullist numlist outdent indent | ' +
+                      'link image media | removeformat | emoticons | code',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                    image_advtab: true
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="mt-4 pt-4 border-t">
             <Button variant="outline" onClick={() => setEditingPost(null)} disabled={isEditSubmitting}>
               Cancelar
             </Button>
@@ -360,6 +386,31 @@ const FirebaseAdminDashboard = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete confirmation dialog */}
+      <AlertDialog
+        open={confirmDeletePostId !== null}
+        onOpenChange={(open) => !open && setConfirmDeletePostId(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação não pode ser desfeita. A postagem será permanentemente removida.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => {
+              if (confirmDeletePostId) {
+                handleDeletePost(confirmDeletePostId);
+              }
+            }}>
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

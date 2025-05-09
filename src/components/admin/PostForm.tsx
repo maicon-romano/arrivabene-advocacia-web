@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Plus, Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -11,6 +10,7 @@ import { uploadImageToCloudinary } from '../../lib/cloudinary';
 import { createPost } from '../../services/posts';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from "@/components/ui/use-toast";
+import { Editor } from '@tinymce/tinymce-react';
 
 interface PostFormProps {
   onPostCreated?: () => void;
@@ -130,23 +130,35 @@ const PostForm = ({ onPostCreated }: PostFormProps) => {
           
           <div className="grid gap-2">
             <Label htmlFor="post-content">Conteúdo</Label>
-            <Textarea 
-              id="post-content" 
-              placeholder="Digite o conteúdo da postagem" 
+            <Editor
+              id="post-content"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={10}
-              disabled={isSubmitting}
+              onEditorChange={(content) => setContent(content)}
+              init={{
+                height: 400,
+                menubar: true,
+                plugins: [
+                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                  'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'emoticons'
+                ],
+                toolbar: 'undo redo | blocks | ' +
+                  'bold italic forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'link image media | removeformat | emoticons | code',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                image_advtab: true
+              }}
             />
           </div>
           
           <div className="grid gap-2">
-            <Label htmlFor="post-image">Imagem</Label>
+            <Label htmlFor="post-image">Imagem de Banner</Label>
             <Alert className="bg-blue-50 border-blue-200 text-blue-800">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Para melhor visualização, recomendamos imagens com proporção 16:9.
-                Tamanho máximo: 2MB.
+                Esta imagem será usada como banner do post no blog. Para melhor visualização, 
+                recomendamos imagens com proporção 16:9. Tamanho máximo: 2MB.
               </AlertDescription>
             </Alert>
             
@@ -161,11 +173,11 @@ const PostForm = ({ onPostCreated }: PostFormProps) => {
           
           {preview && (
             <div className="mt-4">
-              <Label>Preview</Label>
+              <Label>Preview do Banner</Label>
               <div className="mt-2 relative h-48 bg-gray-100 rounded-md overflow-hidden">
                 <img
                   src={preview}
-                  alt="Preview da imagem"
+                  alt="Preview da imagem do banner"
                   className="w-full h-full object-cover"
                 />
               </div>

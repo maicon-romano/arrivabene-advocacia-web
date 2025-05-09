@@ -44,10 +44,10 @@ const Header = () => {
       )}
     >
       {/* Main header */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center pl-2 md:pl-4">
             <img 
               src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
               alt="Arrivabene Advocacia" 
@@ -56,7 +56,7 @@ const Header = () => {
           </div>
           
           {/* Desktop navigation */}
-          <nav className="hidden md:flex">
+          <nav className="hidden md:flex pr-2 md:pr-4">
             <ul className="flex space-x-6 text-white">
               <li><button onClick={() => scrollToSection("inicio")} className="hover:text-accent transition-colors">Início</button></li>
               <li><button onClick={() => scrollToSection("quem-somos")} className="hover:text-accent transition-colors">Quem Somos</button></li>

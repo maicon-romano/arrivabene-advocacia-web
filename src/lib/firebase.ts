@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyC8SsxAITOHlrxXBGxeu3YG99acYtWX00c",
   authDomain: "arrivaben-advocacia-web.firebaseapp.com",
   projectId: "arrivaben-advocacia-web",
-  storageBucket: "arrivaben-advocacia-web.appspot.com", // Corrigido para o nome correto do bucket
+  storageBucket: "arrivaben-advocacia-web.appspot.com",
   messagingSenderId: "675177847049",
   appId: "1:675177847049:web:6ce96f8fd0a8e6c0519bd8",
   measurementId: "G-K4P4JC2QZ9"

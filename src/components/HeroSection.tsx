@@ -20,8 +20,8 @@ const HeroSection = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+      <div className="container mx-auto px-6 md:px-8 lg:px-10">
+        <div className="max-w-4xl pl-4 md:pl-8 opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
             Assessoria Jurídica Confiável e Eficaz na Mesorregião de Campinas
           </h1>

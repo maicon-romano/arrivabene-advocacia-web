@@ -56,10 +56,10 @@ const BlogHeader = () => {
       style={{ top: 0 }} // Ensure the header is pinned to the top
     >
       {/* Main header */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center pl-2 md:pl-4">
             <Link to="/">
               <img 
                 src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
@@ -70,7 +70,7 @@ const BlogHeader = () => {
           </div>
           
           {/* Desktop navigation */}
-          <nav className="hidden md:flex">
+          <nav className="hidden md:flex pr-2 md:pr-4">
             <ul className="flex space-x-6 text-white">
               <li>
                 <Link 

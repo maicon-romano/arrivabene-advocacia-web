@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Send, Instagram, Facebook, MessageCircle } from "l
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const ContatoSection = () => {
   const { ref, inView } = useInView({
@@ -19,6 +20,8 @@ const ContatoSection = () => {
     telefone: "",
     mensagem: ""
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -30,19 +33,48 @@ const ContatoSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log("Form submitted:", formData);
-    toast({
-      title: "Mensagem enviada",
-      description: "Entraremos em contato em breve!",
-    });
+    setIsSubmitting(true);
     
-    // Reset form
-    setFormData({
-      nome: "",
-      email: "",
-      telefone: "",
-      mensagem: ""
+    // Use EmailJS to send email
+    emailjs.send(
+      'service_fqu40yi', // Service ID
+      'template_gs2so7e', // Template ID
+      {
+        from_name: formData.nome,
+        to_name: 'Arrivabene Advocacia',
+        from_email: formData.email,
+        to_email: 'contato@arrivabeneadvocacia.com.br',
+        message: formData.mensagem,
+        reply_to: formData.email,
+        phone: formData.telefone
+      },
+      'Gl9wbUo14WsEMl_uf' // Public Key
+    )
+    .then((response) => {
+      console.log('Email sent successfully!', response);
+      toast({
+        title: "Mensagem enviada",
+        description: "Entraremos em contato em breve!",
+      });
+      
+      // Reset form
+      setFormData({
+        nome: "",
+        email: "",
+        telefone: "",
+        mensagem: ""
+      });
+    })
+    .catch((error) => {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: "Por favor, tente novamente ou entre em contato por telefone.",
+        variant: "destructive"
+      });
+    })
+    .finally(() => {
+      setIsSubmitting(false);
     });
   };
 
@@ -100,6 +132,7 @@ const ContatoSection = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               
@@ -113,6 +146,7 @@ const ContatoSection = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               
@@ -126,6 +160,7 @@ const ContatoSection = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               
@@ -139,15 +174,23 @@ const ContatoSection = () => {
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                   required
+                  disabled={isSubmitting}
                 ></textarea>
               </div>
               
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-md flex items-center justify-center w-full transition-all"
               >
-                <Send size={18} className="mr-2" />
-                Enviar Mensagem
+                {isSubmitting ? (
+                  <>Enviando...</>
+                ) : (
+                  <>
+                    <Send size={18} className="mr-2" />
+                    Enviar Mensagem
+                  </>
+                )}
               </button>
             </form>
           </div>
