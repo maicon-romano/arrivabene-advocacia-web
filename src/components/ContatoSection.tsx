@@ -18,6 +18,7 @@ const ContatoSection = () => {
     nome: "",
     email: "",
     telefone: "",
+    assunto: "",
     mensagem: ""
   });
   
@@ -43,10 +44,12 @@ const ContatoSection = () => {
         from_name: formData.nome,
         to_name: 'Arrivabene Advocacia',
         from_email: formData.email,
+        email: formData.email,
         to_email: 'contato@arrivabeneadvocacia.com.br',
         message: formData.mensagem,
         reply_to: formData.email,
-        phone: formData.telefone
+        phone: formData.telefone,
+        subject: formData.assunto
       },
       'Gl9wbUo14WsEMl_uf' // Public Key
     )
@@ -62,6 +65,7 @@ const ContatoSection = () => {
         nome: "",
         email: "",
         telefone: "",
+        assunto: "",
         mensagem: ""
       });
     })
@@ -99,14 +103,14 @@ const ContatoSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className={cn(
-            "text-3xl md:text-4xl font-bold text-primary mb-4",
+            "text-3xl md:text-4xl font-bold text-primary mb-4 font-playfair",
             inView ? "opacity-100 animate-slide-up" : "opacity-0"
           )}>
             Entre em Contato
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
           <p className={cn(
-            "max-w-2xl mx-auto text-gray-600",
+            "max-w-2xl mx-auto text-gray-600 font-lora",
             inView ? "opacity-100 animate-slide-up" : "opacity-0"
           )} style={{ animationDelay: "0.2s" }}>
             Estamos prontos para ajudar. Entre em contato conosco para uma consulta inicial.
@@ -119,60 +123,74 @@ const ContatoSection = () => {
             "bg-white p-8 rounded-lg shadow-lg",
             inView ? "opacity-100 animate-slide-up" : "opacity-0"
           )} style={{ animationDelay: "0.3s" }}>
-            <h3 className="text-2xl font-semibold text-primary mb-6">Envie uma Mensagem</h3>
+            <h3 className="text-2xl font-semibold text-primary mb-6 font-playfair">Envie uma Mensagem</h3>
             
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="nome" className="block text-gray-700 mb-2">Nome</label>
+                <label htmlFor="nome" className="block text-gray-700 mb-2 font-lora">Nome</label>
                 <input
                   type="text"
                   id="nome"
                   name="nome"
                   value={formData.nome}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
                   required
                   disabled={isSubmitting}
                 />
               </div>
               
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+                <label htmlFor="email" className="block text-gray-700 mb-2 font-lora">Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
                   required
                   disabled={isSubmitting}
                 />
               </div>
               
               <div className="mb-4">
-                <label htmlFor="telefone" className="block text-gray-700 mb-2">Telefone</label>
+                <label htmlFor="telefone" className="block text-gray-700 mb-2 font-lora">Telefone</label>
                 <input
                   type="tel"
                   id="telefone"
                   name="telefone"
                   value={formData.telefone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
+                  required
+                  disabled={isSubmitting}
+                />
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="assunto" className="block text-gray-700 mb-2 font-lora">Assunto</label>
+                <input
+                  type="text"
+                  id="assunto"
+                  name="assunto"
+                  value={formData.assunto}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
                   required
                   disabled={isSubmitting}
                 />
               </div>
               
               <div className="mb-6">
-                <label htmlFor="mensagem" className="block text-gray-700 mb-2">Mensagem</label>
+                <label htmlFor="mensagem" className="block text-gray-700 mb-2 font-lora">Mensagem</label>
                 <textarea
                   id="mensagem"
                   name="mensagem"
                   value={formData.mensagem}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent font-lora"
                   required
                   disabled={isSubmitting}
                 ></textarea>
@@ -181,7 +199,7 @@ const ContatoSection = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-md flex items-center justify-center w-full transition-all"
+                className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-md flex items-center justify-center w-full transition-all font-lora"
               >
                 {isSubmitting ? (
                   <>Enviando...</>
@@ -201,7 +219,7 @@ const ContatoSection = () => {
               "bg-white p-8 rounded-lg shadow-lg mb-8",
               inView ? "opacity-100 animate-slide-up" : "opacity-0"
             )} style={{ animationDelay: "0.5s" }}>
-              <h3 className="text-2xl font-semibold text-primary mb-6">Informações de Contato</h3>
+              <h3 className="text-2xl font-semibold text-primary mb-6 font-playfair">Informações de Contato</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -209,8 +227,8 @@ const ContatoSection = () => {
                     <Phone size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium">Telefone</h4>
-                    <button onClick={handlePhoneClick} className="text-gray-600 hover:text-accent transition-colors">
+                    <h4 className="font-medium font-playfair">Telefone</h4>
+                    <button onClick={handlePhoneClick} className="text-gray-600 hover:text-accent transition-colors font-lora">
                       (19) 9 9822-3557
                     </button>
                   </div>
@@ -221,8 +239,8 @@ const ContatoSection = () => {
                     <Mail size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium">Email</h4>
-                    <button onClick={handleEmailClick} className="text-gray-600 hover:text-accent transition-colors">
+                    <h4 className="font-medium font-playfair">Email</h4>
+                    <button onClick={handleEmailClick} className="text-gray-600 hover:text-accent transition-colors font-lora">
                       contato@arrivabeneadvocacia.com.br
                     </button>
                   </div>
@@ -233,15 +251,15 @@ const ContatoSection = () => {
                     <MapPin size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium">Endereço</h4>
-                    <button onClick={handleMapClick} className="text-gray-600 hover:text-accent transition-colors text-left">
+                    <h4 className="font-medium font-playfair">Endereço</h4>
+                    <button onClick={handleMapClick} className="text-gray-600 hover:text-accent transition-colors text-left font-lora">
                       R. Dez de Abril, 516 - Centro, Artur Nogueira - SP, 13160-162
                     </button>
                   </div>
                 </div>
                 
                 <div className="flex items-center pt-4">
-                  <h4 className="font-medium mr-4">Redes Sociais:</h4>
+                  <h4 className="font-medium mr-4 font-playfair">Redes Sociais:</h4>
                   <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-primary mr-4 transition-colors">
                     <Instagram size={20} />
                   </a>
@@ -253,7 +271,7 @@ const ContatoSection = () => {
                 <div className="pt-4">
                   <button 
                     onClick={handleWhatsAppClick}
-                    className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-md flex items-center justify-center transition-all"
+                    className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-md flex items-center justify-center transition-all font-lora"
                   >
                     <MessageCircle size={18} className="mr-2" />
                     Falar pelo WhatsApp

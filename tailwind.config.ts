@@ -46,10 +46,6 @@ export default {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))'
 				},
-				accent: {
-					DEFAULT: '#e1b000',
-					foreground: '#ffffff'
-				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -112,9 +108,11 @@ export default {
 				'slide-in': 'slideIn 0.7s ease-out forwards'
 			},
 			fontFamily: {
-				'sans': ['Poppins', 'Inter', 'ui-sans-serif', 'system-ui'],
+				'sans': ['Lora', 'Inter', 'ui-sans-serif', 'system-ui'],
 				'inter': ['Inter', 'ui-sans-serif', 'system-ui'],
-				'poppins': ['Poppins', 'ui-sans-serif', 'system-ui']
+				'lora': ['Lora', 'serif'],
+				'playfair': ['Playfair Display', 'serif'],
+				'libre': ['Libre Baskerville', 'serif']
 			}
 		}
 	},

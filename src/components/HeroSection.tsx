@@ -21,12 +21,12 @@ const HeroSection = () => {
       }}
     >
       <div className="container mx-auto px-6 md:px-8 lg:px-10">
-        <div className="max-w-4xl pl-4 md:pl-8 opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        <div className="max-w-4xl pl-6 md:pl-10 lg:pl-12 opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight opacity-0 animate-fade-in font-playfair" style={{ animationDelay: "0.5s" }}>
             Assessoria Jurídica Confiável e Eficaz na Mesorregião de Campinas
           </h1>
           
-          <p className="text-white text-lg md:text-xl mb-10 opacity-0 animate-fade-in max-w-2xl" style={{ animationDelay: "0.7s" }}>
+          <p className="text-white text-lg md:text-xl mb-10 opacity-0 animate-fade-in max-w-2xl font-lora" style={{ animationDelay: "0.7s" }}>
             Não medimos esforços para atender os nossos clientes com máxima eficiência e atenção aos detalhes, com atendimento exclusivo.
           </p>
           
@@ -35,7 +35,7 @@ const HeroSection = () => {
             className={cn(
               "bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-md",
               "transition-all transform hover:scale-105 duration-300",
-              "text-lg font-semibold shadow-lg opacity-0 animate-fade-in"
+              "text-lg font-semibold shadow-lg opacity-0 animate-fade-in font-lora"
             )}
             style={{ animationDelay: "0.9s" }}
           >

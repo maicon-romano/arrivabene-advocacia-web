@@ -10,7 +10,8 @@ import { uploadImageToCloudinary } from '../../lib/cloudinary';
 import { createPost } from '../../services/posts';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from "@/components/ui/use-toast";
-import { Editor } from '@tinymce/tinymce-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface PostFormProps {
   onPostCreated?: () => void;
@@ -25,6 +26,28 @@ const PostForm = ({ onPostCreated }: PostFormProps) => {
   const [error, setError] = useState('');
   const { currentUser } = useAuth();
   const { toast } = useToast();
+
+  // Configurações para o React Quill
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link', 'image', 'video'],
+      ['clean'],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'align': [] }]
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet',
+    'link', 'image', 'video',
+    'color', 'background',
+    'align'
+  ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -130,29 +153,20 @@ const PostForm = ({ onPostCreated }: PostFormProps) => {
           
           <div className="grid gap-2">
             <Label htmlFor="post-content">Conteúdo</Label>
-            <Editor
-              id="post-content"
-              value={content}
-              onEditorChange={(content) => setContent(content)}
-              init={{
-                height: 400,
-                menubar: true,
-                plugins: [
-                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                  'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'emoticons'
-                ],
-                toolbar: 'undo redo | blocks | ' +
-                  'bold italic forecolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'link image media | removeformat | emoticons | code',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                image_advtab: true
-              }}
-            />
+            <div className="min-h-[400px]">
+              <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setContent}
+                modules={modules}
+                formats={formats}
+                placeholder="Comece a escrever seu artigo aqui..."
+                className="h-80"
+              />
+            </div>
           </div>
           
-          <div className="grid gap-2">
+          <div className="grid gap-2 mt-12">
             <Label htmlFor="post-image">Imagem de Banner</Label>
             <Alert className="bg-blue-50 border-blue-200 text-blue-800">
               <AlertCircle className="h-4 w-4" />

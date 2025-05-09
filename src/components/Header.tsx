@@ -44,20 +44,20 @@ const Header = () => {
       )}
     >
       {/* Main header */}
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 md:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center pl-2 md:pl-4">
+          <div className="flex items-center pl-4 md:pl-6 lg:pl-8">
             <img 
               src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
               alt="Arrivabene Advocacia" 
-              className="h-auto w-48 md:w-64" 
+              className="h-auto w-36 md:w-48 lg:w-56" 
             />
           </div>
           
           {/* Desktop navigation */}
-          <nav className="hidden md:flex pr-2 md:pr-4">
-            <ul className="flex space-x-6 text-white">
+          <nav className="hidden md:flex pr-4 md:pr-6 lg:pr-8">
+            <ul className="flex space-x-6 text-white font-playfair">
               <li><button onClick={() => scrollToSection("inicio")} className="hover:text-accent transition-colors">Início</button></li>
               <li><button onClick={() => scrollToSection("quem-somos")} className="hover:text-accent transition-colors">Quem Somos</button></li>
               <li><button onClick={() => scrollToSection("servicos")} className="hover:text-accent transition-colors">Serviços</button></li>
@@ -78,7 +78,7 @@ const Header = () => {
           
           {/* Mobile menu button */}
           <button 
-            className="md:hidden text-white p-2" 
+            className="md:hidden text-white p-2 mr-2" 
             onClick={toggleMenu}
             aria-label="Menu"
           >
@@ -88,9 +88,9 @@ const Header = () => {
       </div>
 
       {/* Mobile navigation */}
-      <div className={`md:hidden bg-primary-light overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-[500px]' : 'max-h-0'}`}>
-        <div className="container mx-auto px-4 py-4">
-          <ul className="flex flex-col space-y-4 text-white">
+      <div className={`md:hidden bg-primary overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-[500px]' : 'max-h-0'}`}>
+        <div className="container mx-auto px-6 py-4">
+          <ul className="flex flex-col space-y-4 text-white font-playfair">
             <li><button onClick={() => scrollToSection("inicio")} className="w-full text-left py-2 hover:text-accent transition-colors">Início</button></li>
             <li><button onClick={() => scrollToSection("quem-somos")} className="w-full text-left py-2 hover:text-accent transition-colors">Quem Somos</button></li>
             <li><button onClick={() => scrollToSection("servicos")} className="w-full text-left py-2 hover:text-accent transition-colors">Serviços</button></li>

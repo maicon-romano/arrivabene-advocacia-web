@@ -8,7 +8,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { LogOut, AlertCircle, Pencil } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../../contexts/AuthContext";
@@ -25,7 +24,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Editor } from '@tinymce/tinymce-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const FirebaseAdminDashboard = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -36,7 +36,7 @@ const FirebaseAdminDashboard = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("create");
   
-  // For editing posts
+  // Para edição de posts
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
@@ -44,6 +44,28 @@ const FirebaseAdminDashboard = () => {
   const [isEditSubmitting, setIsEditSubmitting] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [confirmDeletePostId, setConfirmDeletePostId] = useState<string | null>(null);
+
+  // Configurações para o React Quill
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link', 'image', 'video'],
+      ['clean'],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'align': [] }]
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet',
+    'link', 'image', 'video',
+    'color', 'background',
+    'align'
+  ];
 
   const fetchPosts = async () => {
     try {
@@ -223,7 +245,7 @@ const FirebaseAdminDashboard = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Painel Administrativo</h1>
+          <h1 className="text-2xl font-bold text-gray-800 font-playfair">Painel Administrativo</h1>
           <p className="text-gray-600">Logado como: {currentUser?.email}</p>
         </div>
         <Button 
@@ -274,7 +296,7 @@ const FirebaseAdminDashboard = () => {
                         />
                       </div>
                       <div className="p-4 flex-1">
-                        <h3 className="font-medium text-lg mb-2">{post.title}</h3>
+                        <h3 className="font-medium text-lg mb-2 font-playfair">{post.title}</h3>
                         <p className="text-sm text-gray-500 mb-4">
                           {post.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
                         </p>
@@ -312,14 +334,14 @@ const FirebaseAdminDashboard = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Edit Post Dialog with scrollable content */}
+      {/* Edit Post Dialog com scrollable content */}
       <Dialog 
         open={editingPost !== null} 
         onOpenChange={(open) => !open && setEditingPost(null)}
       >
-        <DialogContent className="max-w-3xl h-[90vh] overflow-hidden flex flex-col">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
           <DialogHeader>
-            <DialogTitle>Editar Postagem</DialogTitle>
+            <DialogTitle className="font-playfair">Editar Postagem</DialogTitle>
           </DialogHeader>
           <div className="overflow-y-auto flex-grow pr-2">
             <div className="space-y-4 py-4">
@@ -353,30 +375,20 @@ const FirebaseAdminDashboard = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-content">Conteúdo</Label>
-                <Editor
-                  id="edit-content"
-                  value={editContent}
-                  onEditorChange={(content) => setEditContent(content)}
-                  init={{
-                    height: 400,
-                    menubar: true,
-                    plugins: [
-                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'emoticons'
-                    ],
-                    toolbar: 'undo redo | blocks | ' +
-                      'bold italic forecolor | alignleft aligncenter ' +
-                      'alignright alignjustify | bullist numlist outdent indent | ' +
-                      'link image media | removeformat | emoticons | code',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                    image_advtab: true
-                  }}
-                />
+                <div className="min-h-[320px]">
+                  <ReactQuill
+                    theme="snow"
+                    value={editContent}
+                    onChange={setEditContent}
+                    modules={modules}
+                    formats={formats}
+                    className="h-64"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <DialogFooter className="mt-4 pt-4 border-t">
+          <DialogFooter className="mt-8 pt-4 border-t">
             <Button variant="outline" onClick={() => setEditingPost(null)} disabled={isEditSubmitting}>
               Cancelar
             </Button>
