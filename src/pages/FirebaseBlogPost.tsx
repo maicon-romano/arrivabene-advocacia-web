@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
@@ -88,7 +89,7 @@ const FirebaseBlogPost = () => {
       <BlogHeader />
       <main className="flex-grow pt-16">
         {/* Hero section with post image */}
-        <section className="relative aspect-[16/9] max-h-[720px] bg-gray-100">
+        <section className="relative aspect-[16/9] max-h-[400px] bg-gray-100">
           {post.imageUrl ? (
             <img 
               src={post.imageUrl}

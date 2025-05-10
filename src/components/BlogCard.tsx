@@ -34,7 +34,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   
   return (
     <Card className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300">
-      <div className="aspect-[16/9] bg-gray-100 relative">
+      <div className="aspect-[16/5] bg-gray-100 relative">
         {post.imageUrl && (
           <img 
             src={post.imageUrl} 

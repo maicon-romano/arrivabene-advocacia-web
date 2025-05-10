@@ -388,7 +388,7 @@ const FirebaseAdminDashboard = () => {
                 <Alert className="bg-blue-50 border-blue-200 text-blue-800 mb-2">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    O tamanho ideal para o banner é 1280x720 pixels (aspecto 16:9).
+                    O tamanho recomendado para o banner é 1280x400 pixels (proporção aproximada de 16:5).
                     Imagens com proporções diferentes podem não ser exibidas corretamente.
                     Tamanho máximo: 2MB.
                   </AlertDescription>

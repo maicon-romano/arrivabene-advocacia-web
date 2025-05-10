@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
@@ -100,7 +101,7 @@ const BlogSection = () => {
                 )}
                 style={{ animationDelay: `${0.3 + index * 0.2}s` }}
               >
-                <div className="aspect-[16/9] bg-gray-100 relative">
+                <div className="aspect-[16/5] bg-gray-100 relative">
                   {post.imageUrl ? (
                     <img 
                       src={post.imageUrl}
