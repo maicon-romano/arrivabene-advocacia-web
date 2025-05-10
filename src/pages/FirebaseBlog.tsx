@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";

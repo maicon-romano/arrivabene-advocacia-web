@@ -51,7 +51,7 @@ const FirebaseBlogPost = () => {
       <div className="min-h-screen flex flex-col">
         <BlogHeader />
         <div className="flex-grow pt-16 flex items-center justify-center">
-          <p className="text-xl text-gray-600">Carregando post...</p>
+          <p className="text-xl text-gray-600 font-lora">Carregando post...</p>
         </div>
         <Footer />
       </div>
@@ -63,7 +63,7 @@ const FirebaseBlogPost = () => {
       <div className="min-h-screen flex flex-col">
         <BlogHeader />
         <div className="flex-grow pt-16 flex flex-col items-center justify-center">
-          <p className="text-xl text-gray-600 mb-4">{error || 'Post não encontrado'}</p>
+          <p className="text-xl text-gray-600 mb-4 font-lora">{error || 'Post não encontrado'}</p>
           <Link 
             to="/blog"
             className="flex items-center text-accent hover:text-primary font-medium transition-colors"
@@ -88,12 +88,12 @@ const FirebaseBlogPost = () => {
       <BlogHeader />
       <main className="flex-grow pt-16">
         {/* Hero section with post image */}
-        <section className="relative h-64 md:h-[400px] bg-gray-100">
+        <section className="relative aspect-video max-h-[400px] bg-gray-100">
           {post.imageUrl ? (
             <img 
               src={post.imageUrl}
               alt={post.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain mx-auto"
             />
           ) : (
             <div className="w-full h-full bg-gray-200" />
@@ -114,12 +114,12 @@ const FirebaseBlogPost = () => {
             </Link>
             
             {/* Post title */}
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
               {post.title}
             </h1>
             
             {/* Post meta */}
-            <div className="flex flex-wrap items-center text-sm text-gray-500 mb-8">
+            <div className="flex flex-wrap items-center text-sm text-gray-500 mb-8 font-lora">
               <div className="flex items-center mr-6 mb-2">
                 <Calendar size={14} className="mr-1" />
                 <span>{formattedDate}</span>
@@ -137,13 +137,12 @@ const FirebaseBlogPost = () => {
             </div>
             
             {/* Post content */}
-            <div className="prose prose-lg max-w-none">
-              {/* If content is HTML (from React Quill) */}
-              {post.content.includes('<') ? (
+            <div className="prose prose-lg max-w-none font-lora">
+              {post.content && post.content.includes('<') ? (
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
               ) : (
                 // Otherwise, split by newlines for plain text
-                post.content.split('\n').map((paragraph, index) => (
+                post.content.split('\n\n').map((paragraph, index) => (
                   <p key={index} className="mb-4">{paragraph}</p>
                 ))
               )}
