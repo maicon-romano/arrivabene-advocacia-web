@@ -1,11 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import { Menu, X, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +17,27 @@ const Header = () => {
         setScrolled(true);
       } else {
         setScrolled(false);
+      }
+
+      // Get all sections for intersection detection
+      const sections = ["inicio", "quem-somos", "servicos", "por-que-nos", "contato", "blog"];
+      let currentActive = "";
+
+      // Find the current section based on scroll position
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // If the section is visible more than half in the viewport, set as active
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentActive = sectionId;
+            break;
+          }
+        }
+      }
+
+      if (currentActive) {
+        setActiveSection(currentActive);
       }
     };
 
@@ -32,7 +56,12 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
+      setActiveSection(sectionId);
     }
+  };
+
+  const isActive = (sectionId: string) => {
+    return activeSection === sectionId;
   };
 
   return (
@@ -60,7 +89,11 @@ const Header = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("inicio")}
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    isActive("inicio") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Início
                 </button>
@@ -68,7 +101,11 @@ const Header = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("quem-somos")}
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    isActive("quem-somos") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Quem Somos
                 </button>
@@ -76,7 +113,11 @@ const Header = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("servicos")}
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    isActive("servicos") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Serviços
                 </button>
@@ -84,7 +125,11 @@ const Header = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("por-que-nos")}
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    isActive("por-que-nos") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Por que Nós
                 </button>
@@ -92,7 +137,11 @@ const Header = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("contato")}
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    isActive("contato") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Contato
                 </button>
@@ -100,7 +149,11 @@ const Header = () => {
               <li>
                 <Link
                   to="/blog"
-                  className="hover:text-accent transition-colors"
+                  className={cn(
+                    "hover:text-accent transition-colors relative",
+                    "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
+                    location.pathname.includes("/blog") && "after:scale-x-100 after:origin-bottom-left"
+                  )}
                 >
                   Blog
                 </Link>
@@ -139,7 +192,10 @@ const Header = () => {
             <li>
               <button
                 onClick={() => scrollToSection("inicio")}
-                className="w-full text-left py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "w-full text-left py-2 hover:text-accent transition-colors",
+                  isActive("inicio") && "text-accent"
+                )}
               >
                 Início
               </button>
@@ -147,7 +203,10 @@ const Header = () => {
             <li>
               <button
                 onClick={() => scrollToSection("quem-somos")}
-                className="w-full text-left py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "w-full text-left py-2 hover:text-accent transition-colors",
+                  isActive("quem-somos") && "text-accent"
+                )}
               >
                 Quem Somos
               </button>
@@ -155,7 +214,10 @@ const Header = () => {
             <li>
               <button
                 onClick={() => scrollToSection("servicos")}
-                className="w-full text-left py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "w-full text-left py-2 hover:text-accent transition-colors",
+                  isActive("servicos") && "text-accent"
+                )}
               >
                 Serviços
               </button>
@@ -163,7 +225,10 @@ const Header = () => {
             <li>
               <button
                 onClick={() => scrollToSection("por-que-nos")}
-                className="w-full text-left py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "w-full text-left py-2 hover:text-accent transition-colors",
+                  isActive("por-que-nos") && "text-accent"
+                )}
               >
                 Por que Nós
               </button>
@@ -171,7 +236,10 @@ const Header = () => {
             <li>
               <button
                 onClick={() => scrollToSection("contato")}
-                className="w-full text-left py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "w-full text-left py-2 hover:text-accent transition-colors",
+                  isActive("contato") && "text-accent"
+                )}
               >
                 Contato
               </button>
@@ -179,7 +247,10 @@ const Header = () => {
             <li>
               <Link
                 to="/blog"
-                className="block py-2 hover:text-accent transition-colors"
+                className={cn(
+                  "block py-2 hover:text-accent transition-colors",
+                  location.pathname.includes("/blog") && "text-accent"
+                )}
               >
                 Blog
               </Link>

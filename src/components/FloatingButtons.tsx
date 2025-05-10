@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { ArrowUp, MessageCircle } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FloatingButtons = () => {
@@ -36,19 +37,17 @@ const FloatingButtons = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-      {/* WhatsApp Button - dynamically positioned based on back-to-top visibility */}
+      {/* WhatsApp Button */}
       <button
         onClick={openWhatsApp}
         className={cn(
           "bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg",
           "transition-all duration-300 hover:scale-110",
-          "flex items-center justify-center",
-          showBackToTop ? "mb-0" : "mb-0" // No extra margin when back-to-top is hidden
+          "flex items-center justify-center"
         )}
         aria-label="Contato via WhatsApp"
-        style={{ transform: `translateY(${showBackToTop ? "0" : "0"}px)` }}
       >
-        <MessageCircle size={24} />
+        <i className="fa-brands fa-whatsapp text-2xl"></i>
       </button>
 
       {/* Back to Top Button */}

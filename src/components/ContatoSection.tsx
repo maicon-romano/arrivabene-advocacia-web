@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Phone,
@@ -6,7 +7,6 @@ import {
   Send,
   Instagram,
   Facebook,
-  MessageCircle,
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
@@ -109,12 +109,12 @@ const ContatoSection = () => {
   };
 
   return (
-    <section id="contato" className="py-20 bg-gray-50" ref={ref}>
+    <section id="contato" className="py-16 bg-gray-50" ref={ref}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2
             className={cn(
-              "text-3xl md:text-4xl font-bold text-primary mb-4 font-lora",
+              "text-3xl md:text-4xl font-bold text-primary mb-4 font-playfair",
               inView ? "opacity-100 animate-slide-up" : "opacity-0"
             )}
           >
@@ -141,12 +141,12 @@ const ContatoSection = () => {
             )}
             style={{ animationDelay: "0.3s" }}
           >
-            <h3 className="text-2xl font-semibold text-primary mb-6 font-lora">
+            <h3 className="text-2xl font-semibold text-primary mb-6 font-playfair">
               Envie uma Mensagem
             </h3>
 
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
                 <label
                   htmlFor="nome"
                   className="block text-gray-700 mb-2 font-lora"
@@ -165,7 +165,7 @@ const ContatoSection = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div>
                 <label
                   htmlFor="email"
                   className="block text-gray-700 mb-2 font-lora"
@@ -184,7 +184,7 @@ const ContatoSection = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div>
                 <label
                   htmlFor="telefone"
                   className="block text-gray-700 mb-2 font-lora"
@@ -203,7 +203,7 @@ const ContatoSection = () => {
                 />
               </div>
 
-              <div className="mb-6">
+              <div>
                 <label
                   htmlFor="assunto"
                   className="block text-gray-700 mb-2 font-lora"
@@ -248,7 +248,7 @@ const ContatoSection = () => {
               )}
               style={{ animationDelay: "0.5s" }}
             >
-              <h3 className="text-2xl font-semibold text-primary mb-6 font-lora">
+              <h3 className="text-2xl font-semibold text-primary mb-6 font-playfair">
                 Informações de Contato
               </h3>
 
@@ -261,7 +261,7 @@ const ContatoSection = () => {
                     <Phone size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium font-lora">Telefone</h4>
+                    <h4 className="font-medium font-playfair">Telefone</h4>
                     <button
                       onClick={handlePhoneClick}
                       className="text-gray-600 hover:text-accent transition-colors font-lora"
@@ -279,7 +279,7 @@ const ContatoSection = () => {
                     <Mail size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium font-lora">Email</h4>
+                    <h4 className="font-medium font-playfair">Email</h4>
                     <button
                       onClick={handleEmailClick}
                       className="text-gray-600 hover:text-accent transition-colors font-lora"
@@ -297,7 +297,7 @@ const ContatoSection = () => {
                     <MapPin size={20} />
                   </button>
                   <div>
-                    <h4 className="font-medium font-lora">Endereço</h4>
+                    <h4 className="font-medium font-playfair">Endereço</h4>
                     <button
                       onClick={handleMapClick}
                       className="text-gray-600 hover:text-accent transition-colors text-left font-lora"
@@ -309,7 +309,7 @@ const ContatoSection = () => {
                 </div>
 
                 <div className="flex items-center pt-4">
-                  <h4 className="font-medium mr-4 font-lora">Redes Sociais:</h4>
+                  <h4 className="font-medium mr-4 font-playfair">Redes Sociais:</h4>
                   <a
                     href="https://www.instagram.com/arrivabeneadvocacia/"
                     target="_blank"
@@ -333,7 +333,7 @@ const ContatoSection = () => {
                     onClick={handleWhatsAppClick}
                     className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-md flex items-center justify-center transition-all font-lora"
                   >
-                    <MessageCircle size={18} className="mr-2" />
+                    <i className="fa-brands fa-whatsapp mr-2 text-lg"></i>
                     Falar pelo WhatsApp
                   </button>
                 </div>
@@ -356,7 +356,7 @@ const ContatoSection = () => {
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14736.529048044073!2d-47.183713873365825!3d-22.57415605801065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c88d7fa9c9e5b7%3A0x90533d5a74897a61!2sEduardo%20Arrivabene%20Advocacia!5e0!3m2!1spt-BR!2sbr!4v1746056828878!5m2!1spt-BR!2sbr"
                   width="100%"
                   height="300"
-                  style={{ border: 0, pointerEvents: "none" }}
+                  style={{ border: 0, pointerEvents: "auto" }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

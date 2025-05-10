@@ -1,3 +1,4 @@
+
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +23,7 @@ const HeroSection = () => {
           style={{ animationDelay: "0.3s" }}
         >
           <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight opacity-0 animate-fade-in font-lora"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight opacity-0 animate-fade-in font-playfair"
             style={{ animationDelay: "0.5s" }}
           >
             Assessoria Jurídica Confiável e Eficaz na Mesorregião de Campinas
@@ -47,7 +48,7 @@ const HeroSection = () => {
             )}
             style={{ animationDelay: "0.9s" }}
           >
-            Fale conosco no WhatsApp
+            <i className="fa-brands fa-whatsapp mr-2"></i> Fale conosco no WhatsApp
           </a>
         </div>
       </div>
