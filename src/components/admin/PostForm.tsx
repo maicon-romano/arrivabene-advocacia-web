@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -171,8 +170,8 @@ const PostForm = ({ onPostCreated }: PostFormProps) => {
             <Alert className="bg-blue-50 border-blue-200 text-blue-800">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Esta imagem será usada como banner do post no blog. Para melhor visualização, 
-                recomendamos imagens com proporção 16:9. Tamanho máximo: 2MB.
+                Esta imagem será usada como banner do post no blog. O tamanho ideal é 1280x720 pixels (aspecto 16:9).
+                Imagens com proporções diferentes podem não ser exibidas corretamente. Tamanho máximo: 2MB.
               </AlertDescription>
             </Alert>
             

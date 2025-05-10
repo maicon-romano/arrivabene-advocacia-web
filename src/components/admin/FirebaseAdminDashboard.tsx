@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -389,8 +388,9 @@ const FirebaseAdminDashboard = () => {
                 <Alert className="bg-blue-50 border-blue-200 text-blue-800 mb-2">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    Para melhor visualização, é recomendado imagens com proporção 16:9
-                    (1280x720 pixels) ou formato landscape. Tamanho máximo: 2MB.
+                    O tamanho ideal para o banner é 1280x720 pixels (aspecto 16:9).
+                    Imagens com proporções diferentes podem não ser exibidas corretamente.
+                    Tamanho máximo: 2MB.
                   </AlertDescription>
                 </Alert>
                 <Input
