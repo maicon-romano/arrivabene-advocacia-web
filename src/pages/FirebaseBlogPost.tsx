@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
@@ -89,7 +88,7 @@ const FirebaseBlogPost = () => {
       <BlogHeader />
       <main className="flex-grow pt-16">
         {/* Hero section with post image */}
-        <section className="relative h-64 md:h-96 bg-gray-100">
+        <section className="relative h-64 md:h-[400px] bg-gray-100">
           {post.imageUrl ? (
             <img 
               src={post.imageUrl}
@@ -139,10 +138,15 @@ const FirebaseBlogPost = () => {
             
             {/* Post content */}
             <div className="prose prose-lg max-w-none">
-              {/* Split content by newlines and create paragraphs */}
-              {post.content.split('\n').map((paragraph, index) => (
-                <p key={index} className="mb-4">{paragraph}</p>
-              ))}
+              {/* If content is HTML (from React Quill) */}
+              {post.content.includes('<') ? (
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              ) : (
+                // Otherwise, split by newlines for plain text
+                post.content.split('\n').map((paragraph, index) => (
+                  <p key={index} className="mb-4">{paragraph}</p>
+                ))
+              )}
             </div>
           </div>
         </section>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -385,6 +386,13 @@ const FirebaseAdminDashboard = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-image">Imagem de Banner</Label>
+                <Alert className="bg-blue-50 border-blue-200 text-blue-800 mb-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    Para melhor visualização, é recomendado imagens com proporção 16:9
+                    (1280x720 pixels) ou formato landscape. Tamanho máximo: 2MB.
+                  </AlertDescription>
+                </Alert>
                 <Input
                   id="edit-image"
                   type="file"

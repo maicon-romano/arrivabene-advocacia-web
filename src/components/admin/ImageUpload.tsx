@@ -60,8 +60,8 @@ const ImageUpload = ({ onImageChange, currentImage }: ImageUploadProps) => {
             <Alert className="bg-blue-50 border-blue-200 text-blue-800 mb-4">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Para melhor visualização, recomendamos imagens com proporção 16:9 (1280x720px).
-                Tamanho máximo: 2MB.
+                Para melhor visualização, recomendamos imagens com proporção 16:9 (1280x720 pixels) 
+                ou formato landscape. Tamanho máximo: 2MB.
               </AlertDescription>
             </Alert>
             
