@@ -1,4 +1,3 @@
-
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -12,7 +11,7 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+          "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/fachada.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -48,7 +47,8 @@ const HeroSection = () => {
             )}
             style={{ animationDelay: "0.9s" }}
           >
-            <i className="fa-brands fa-whatsapp mr-2"></i> Fale conosco no WhatsApp
+            <i className="fa-brands fa-whatsapp mr-2"></i> Fale conosco no
+            WhatsApp
           </a>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Menu, X, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,14 @@ const Header = () => {
       }
 
       // Get all sections for intersection detection
-      const sections = ["inicio", "quem-somos", "servicos", "por-que-nos", "contato", "blog"];
+      const sections = [
+        "inicio",
+        "quem-somos",
+        "servicos",
+        "por-que-nos",
+        "contato",
+        "blog",
+      ];
       let currentActive = "";
 
       // Find the current section based on scroll position
@@ -68,7 +74,7 @@ const Header = () => {
     <header
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
-        scrolled ? "bg-primary shadow-md py-2" : "bg-primary/80 py-4"
+        scrolled ? "bg-primary shadow-md py-2" : "bg-primary py-4"
       )}
     >
       {/* Main header */}
@@ -92,7 +98,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    isActive("inicio") && "after:scale-x-100 after:origin-bottom-left"
+                    isActive("inicio") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Início
@@ -104,7 +111,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    isActive("quem-somos") && "after:scale-x-100 after:origin-bottom-left"
+                    isActive("quem-somos") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Quem Somos
@@ -116,7 +124,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    isActive("servicos") && "after:scale-x-100 after:origin-bottom-left"
+                    isActive("servicos") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Serviços
@@ -128,7 +137,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    isActive("por-que-nos") && "after:scale-x-100 after:origin-bottom-left"
+                    isActive("por-que-nos") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Por que Nós
@@ -140,7 +150,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    isActive("contato") && "after:scale-x-100 after:origin-bottom-left"
+                    isActive("contato") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Contato
@@ -152,7 +163,8 @@ const Header = () => {
                   className={cn(
                     "hover:text-accent transition-colors relative",
                     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300",
-                    location.pathname.includes("/blog") && "after:scale-x-100 after:origin-bottom-left"
+                    location.pathname.includes("/blog") &&
+                      "after:scale-x-100 after:origin-bottom-left"
                   )}
                 >
                   Blog
