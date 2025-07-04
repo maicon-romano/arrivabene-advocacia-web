@@ -25,7 +25,7 @@ const Bio = () => {
       description: "Fale conosco agora",
       url: whatsappUrl,
       icon: WhatsAppIcon,
-      color: "bg-green-600 hover:bg-green-700",
+      color: "bg-accent hover:bg-accent/90",
     },
     {
       title: "Site Oficial",
@@ -53,23 +53,23 @@ const Bio = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen bg-primary py-8 px-4">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-primary py-12 px-4">
+      <div className="max-w-sm mx-auto">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="mb-6">
+        <div className="text-center mb-10">
+          <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <img 
               src="/lovable-uploads/f6bbe8bd-244d-4ea5-a6db-0db108c390b2.png" 
               alt="Arrivabene Advocacia" 
-              className="w-full h-auto max-w-xs mx-auto"
+              className="w-full h-auto max-w-[280px] mx-auto drop-shadow-lg"
             />
           </div>
         </div>
 
         {/* Texto de apresentação */}
-        <Card className="mb-8 shadow-lg border-0">
-          <CardContent className="p-6 text-center">
-            <p className="text-gray-700 text-sm leading-relaxed">
+        <Card className="mb-10 shadow-xl border-0 bg-white/95 backdrop-blur-sm opacity-0 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          <CardContent className="p-8 text-center">
+            <p className="text-gray-700 text-base leading-relaxed font-lora">
               Assessoria jurídica confiável e eficaz na Mesorregião de Campinas. 
               Não medimos esforços para atender nossos clientes com máxima 
               eficiência e atenção aos detalhes.
@@ -78,44 +78,53 @@ const Bio = () => {
         </Card>
 
         {/* Links */}
-        <div className="space-y-4 mb-8">
+        <div className="space-y-5 mb-12">
           {links.map((link, index) => {
             const IconComponent = link.icon;
             return (
-              <a
+              <div
                 key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
+                className="opacity-0 animate-fade-in"
+                style={{ animationDelay: `${0.6 + index * 0.1}s` }}
               >
-                <Button
-                  className={`w-full h-auto p-4 ${link.color} text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-105`}
-                  variant="default"
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
                 >
-                  <div className="flex items-center justify-center space-x-3">
-                    <IconComponent size={24} />
-                    <div className="text-left">
-                      <div className="font-semibold text-base">{link.title}</div>
-                      <div className="text-sm opacity-90">{link.description}</div>
+                  <Button
+                    className={`w-full h-auto p-6 ${link.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 rounded-xl border-0`}
+                    variant="default"
+                  >
+                    <div className="flex items-center justify-start space-x-4 w-full">
+                      <div className="flex-shrink-0">
+                        <IconComponent size={28} />
+                      </div>
+                      <div className="text-left flex-grow">
+                        <div className="font-semibold text-lg font-playfair">{link.title}</div>
+                        <div className="text-sm opacity-90 font-lora">{link.description}</div>
+                      </div>
                     </div>
-                  </div>
-                </Button>
-              </a>
+                  </Button>
+                </a>
+              </div>
             );
           })}
         </div>
 
         {/* OAB */}
-        <div className="text-center mb-4">
-          <p className="text-accent font-medium text-sm">
-            OAB/SP nº 375.994
-          </p>
+        <div className="text-center mb-6 opacity-0 animate-fade-in" style={{ animationDelay: "1.0s" }}>
+          <div className="inline-block bg-accent/10 px-6 py-3 rounded-full">
+            <p className="text-accent font-semibold text-sm font-playfair">
+              OAB/SP nº 375.994
+            </p>
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center pt-4 border-t border-accent/30">
-          <p className="text-xs text-accent/80">
+        <div className="text-center pt-8 border-t border-accent/20 opacity-0 animate-fade-in" style={{ animationDelay: "1.2s" }}>
+          <p className="text-sm text-accent/70 font-lora">
             © {currentYear} Eduardo Arrivabene Advocacia
           </p>
         </div>
