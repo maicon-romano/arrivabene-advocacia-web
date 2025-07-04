@@ -12,6 +12,7 @@ import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import FirebaseBlog from "./pages/FirebaseBlog";
 import FirebaseBlogPost from "./pages/FirebaseBlogPost";
+import Bio from "./pages/Bio";
 import { BlogProvider } from "./contexts/BlogContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/blog" element={<FirebaseBlog />} />
               <Route path="/blog/:id" element={<FirebaseBlogPost />} />
+              <Route path="/bio" element={<Bio />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route 
                 path="/admin" 
